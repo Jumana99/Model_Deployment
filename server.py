@@ -17,7 +17,7 @@ def predict():
     text = request.form.get('text')
     # input_query = np.array([[text]])
     result = deepLearningMdels.execute(text)
-    return jsonify({'placement': str(result)})
+    return jsonify(result)
 
 
 if __name__ == '__main__':
