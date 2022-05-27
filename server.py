@@ -5,12 +5,17 @@ from deepLearningMdels import execute
 app = Flask(__name__)
 
 
+@app.route('/')
+def index():
+    return "Hello world"
+
+
 @app.route('/predict', methods=['POST'])
 def predict():
     text = request.form.get('text')
     # input_query = np.array([[text]])
     result = execute(text)
-    return jsonify(result)
+    return jsonify({'placement': str(result)})
 
 
 if __name__ == '__main__':
