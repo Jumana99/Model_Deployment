@@ -1,22 +1,28 @@
 from flask import Flask, request, jsonify
 from deepLearningMdels import execute
 
-# model = pickle.load(open('model.pkl', 'rb'))
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return "Hello world"
+@app.route("/")
+def showHomePage():
+    return "This is home page"
 
 
-@app.route('/predict', methods=['POST'])
+@app.route("/debug", methods=["POST"])
+def debug():
+    text = request.form["sample"]
+    print(text)
+    return "received"
+
+
+@app.route("/predict", methods=["POST"])
 def predict():
-    text = request.form.get('text')
-    # input_query = np.array([[text]])
+    text = request.form["sample"]
     result = execute(text)
-    return jsonify({'placement': str(result)})
+    print(result)
+    return result
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
